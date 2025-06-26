@@ -1,6 +1,16 @@
 # Kubernetes 101
 
-https://kodekloud.com/public-playgrounds/multi-node-k8s-1-33/
+free playground: https://kodekloud.com/public-playgrounds/multi-node-k8s-1-33/
+
+Options: https://learn.kodekloud.com/user/courses/kubernetes-challenges
+Challenges are ree, but sign up is required
+
+Lab 1 - RBAC
+Lab 2 - broken cluster, troobleshooting
+Lab3 - deployments and services
+Lab4 - highly available Redis Cluster
+
+
 
 ```
 kubectl --help
@@ -86,6 +96,10 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.14.2
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
         ports:
         - containerPort: 80
 ```
@@ -141,8 +155,28 @@ k run test --image=nginx -it --rm -n k101 -- sh
 ```
 
 ```
-curl my-service.k101.svc.cluster.local
+curl my-service
 ```
+
+### Kubernetes DNS Naming Convention
+
+The URL my-service.k101.svc.cluster.local follows Kubernetes' DNS naming convention and breaks down as follows:
+
+`my-service` - The name of the Service resource as defined in your service.yaml
+`k101` - The namespace where the Service is deployed
+`svc` - Indicates this is a Service resource type
+`cluster.local` - The default DNS domain for the Kubernetes cluster
+
+This follows the standard Kubernetes DNS pattern:
+
+```
+<service-name>.<namespace>.svc.cluster.local
+```
+
+This DNS structure allows pods within the cluster to reliably communicate with services using consistent naming, regardless of the actual pod IPs or locations. The example shows accessing the nginx service from a test pod created in the same namespace.
+
+You can also use shorter forms within the same namespace (just my-service) or from other namespaces (my-service.k101)
+
 
 ## Scaling
 
@@ -178,9 +212,13 @@ k apply -f hpa.yaml
 
 We need metrics server worker, which we don't have in the playground.
 
-## Further labs
+Install metrics server to see it working:
 
-https://learn.kodekloud.com/user/courses/kubernetes-challenges
-Lab 3
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
 
-Free, but requires sign up 
+```
+kubectl patch -n kube-system deployment metrics-server --type=json -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+```
+
