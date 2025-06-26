@@ -1,6 +1,7 @@
 # Kubernetes 101
 
 free playground: https://kodekloud.com/public-playgrounds/multi-node-k8s-1-33/
+second option: https://killercoda.com/playgrounds/scenario/kubernetes
 
 Options: https://learn.kodekloud.com/user/courses/kubernetes-challenges
 Challenges are ree, but sign up is required
