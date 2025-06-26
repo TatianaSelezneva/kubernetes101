@@ -222,3 +222,17 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 kubectl patch -n kube-system deployment metrics-server --type=json -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
 ```
 
+-------
+
+Wifi:
+networks: Loungeroom
+username: rgroup4
+password: 8605
+
+-------
+
+Vim help:
+
+To enter insert mode: i
+To save and exit: :x
+To exit no saving :q!
