@@ -4,7 +4,7 @@ free playground: https://kodekloud.com/public-playgrounds/multi-node-k8s-1-33/
 second option: https://killercoda.com/playgrounds/scenario/kubernetes
 
 Options: https://learn.kodekloud.com/user/courses/kubernetes-challenges
-Challenges are ree, but sign up is required
+Challenges are free, but sign up is required
 
 Lab 1 - RBAC
 Lab 2 - broken cluster, troobleshooting
